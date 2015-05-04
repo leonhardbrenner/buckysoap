@@ -429,6 +429,12 @@ class Element(object):
         if self.__source__ is not None:
             attr = getattr(self.__source__, name)
         if attr is not None and self.__index__ is not None:
+            #Although this is simple and effective it is not very efficienct
+            #    a = Ai(Bi(C[xy])))
+            #Using this method:
+            #    ax = Cx[Bi][Ai], xy = Cy[Bi][Ai]
+            #A better approach is to calculate the index then apply it
+            #    i = Bi[Ai], ax = Cx[i], ay = Cx[i]
             attr = attr[self.__index__]
         if attr is not None:
             setattr(self, name, attr)
