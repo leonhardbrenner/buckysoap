@@ -124,11 +124,12 @@ def vstack(self, *elements):
         __cnames__ = self.__cnames__
         def __getattr__(inner, name):
             attr = getattr(self, name)
-            return (attr
-                    if len(elements)==0 else
-                    attr.vstack(*[getattr(element, name)
-                                  for element in elements]))
-    return Element(factory=View, cnames=self.__cnames__)
+            if len(elements)==0:
+                return attr
+            else:
+                return attr.vstack(*[getattr(element, name)
+                                     for element in elements])
+    return Element(factory=View, name=self.__name__, cnames=self.__cnames__)
 
 def freeze(self, *a):
     '''
@@ -220,7 +221,8 @@ def group(self, *a):
     '''
     x = self[group_index(self, *a)]
     for cname in by(self, *a):
-        x = x(**{cname.split('.')[-1]:getcolumn(x, cname).first})
+        setattr(x, cname, getcolumn(x, cname).first)
+        #x = x(**{cname.split('.')[-1]:getcolumn(x, cname).first})
     return x
 
 def display(self, n=20, indent = '    ', output_stream = sys.stdout, file=None, filename=None):
@@ -265,7 +267,16 @@ def display(self, n=20, indent = '    ', output_stream = sys.stdout, file=None, 
         if not isinstance(attr, Atom) or len(attr.bincounts)>0:
             is_frame_like = False
     if is_frame_like:
-        print self[0:n].to_pandas().to_string()
+        columns = zip(*[self.__cnames__]
+                      + zip(*[(getattr(self, name)[0:10])
+                              for name in self.__cnames__]))
+        column_widths = [max([len(str(y)) for y in x]) for x in columns]
+        column_format = [''.join(['%', str(x), 's']) for x in column_widths]
+        row_format = ' '.join(column_format)
+        for row in zip(*columns):
+            print row_format % row
+        #import pdb; pdb.set_trace()
+        #print self[0:n].to_pandas().to_string()
     else:
         if filename is not None:
             output_stream = open(filename, 'w')

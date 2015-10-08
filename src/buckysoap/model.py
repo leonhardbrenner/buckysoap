@@ -50,7 +50,10 @@ class Model(object):
             return self.source.__name__
         @property
         def doc(self):
-            return re.sub('^\s+', '', self.source.__doc__)
+            if self.source.__doc__ is None:
+                return ''
+            else:
+                return re.sub('^\s+', '', self.source.__doc__).strip()
         def write(self, lines, pad=0):
             padding = (self.root_distance + pad) * '    '
             self.output.write(padding + ('\n'+padding).join(lines.split('\n')) + '\n')
@@ -100,14 +103,21 @@ class Generator(object):
     def render(self, target, template=None, **sources):
         import os
         from mako.template import Template
-        target = os.path.join(self.generated_root, Template(target).render(**sources))
-        dirname = os.path.dirname(target)
-        if dirname!='' and not os.path.exists(dirname):
-            os.mkdir(dirname)
-        with open(target, 'w') as page:
-            print "Outputing", target
+        if target is not None:
+            target = os.path.join(self.generated_root, Template(target).render(**sources))
+            dirname = os.path.dirname(target)
+            if dirname!='' and not os.path.exists(dirname):
+                os.mkdir(dirname)
+        def render(page):
+            if target is not None:
+                print "Outputing", target
             if template is not None:
                 print >> page, Template(
                     '<%include file="'+template+'"/>',
                     lookup = self.template_lookup
                 ).render(**sources)
+        if target is None:
+            render(sys.stdout)
+        else:
+            with open(target, 'w') as page:
+                render(page)

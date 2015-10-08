@@ -3,7 +3,7 @@
 
 # <codecell>
 
-import util.buckysoap as bs
+import buckysoap as bs
 
 class A(bs.Ring):
 
