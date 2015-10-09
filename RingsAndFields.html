@@ -169,6 +169,30 @@ div#notebook {
   <div tabindex="-1" id="notebook" class="border-box-sizing">
     <div class="container" id="notebook-container">
 
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Ring, Field and Series is more of a design pattern then it is a package. I use this pattern for all of my time series work. These examples are trivial and there is very little code in the three modules. So take a look at how they works:</p>
+<p><a href="https://github.com/leonhardbrenner/buckysoap/blob/master/src/buckysoap">https://github.com/leonhardbrenner/buckysoap/blob/master/src/buckysoap</a></p>
+
+<pre><code>ring.py - this is the fixer or root
+field.py - let's us factor our code into smaller components
+series.py - works with ring to give use indexing of time
+
+</code></pre>
+<p>In the example below we make up a timeline(dates). You should already understand properties(x, y, z) but what is interesting here is:</p>
+
+<pre><code>b = property(B) #look at Field.__getattr__
+
+</code></pre>
+<p>This let's us access self.date which is actually a property of an instance of A. Actually, all properties of A are available to B including horizons. A.series(horizon=(-1, 21)) returns a Series object which is bound to and will create instances of A for each of the dates in the timeseries. We can index the series. We can also index each ring to access a ring relative to the current ring.</p>
+<p>If this sounds complicated then just look at the examples:</p>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[38]:</div>
@@ -196,7 +220,7 @@ div#notebook {
         
     <span class="n">b</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">B</span><span class="p">)</span>
         
-<span class="n">series</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">series</span><span class="p">(</span><span class="n">horizons</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">21</span><span class="p">))</span>
+<span class="n">series</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">series</span><span class="p">(</span><span class="n">horizons</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">21</span><span class="p">))</span>
 <span class="k">print</span> <span class="n">series</span><span class="p">[</span><span class="s">&#39;20100107&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">b</span><span class="o">.</span><span class="n">z</span>
 <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">series</span><span class="p">:</span>
     <span class="k">print</span> <span class="n">o</span><span class="o">.</span><span class="n">date</span><span class="p">,</span> <span class="n">o</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">o</span><span class="o">.</span><span class="n">b</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">o</span><span class="o">.</span><span class="n">b</span><span class="o">.</span><span class="n">z</span>
@@ -230,6 +254,16 @@ div#notebook {
 </div>
 </div>
 
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In this example we are going to replace property y in class B. This is why I use the convention uppercase for the class and lowercase for the property. Here the difference in the code is trivial y becomes y`.</p>
+
+</div>
+</div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
@@ -280,6 +314,16 @@ div#notebook {
 </div>
 </div>
 
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now we are going to use the horizons. We create a method change which takes a callable(func). As we iterate through the series we call change passing the lambda which change will use to curry the Ring(s) found at the horizons of the current Ring. Typically, I use this with Atom and Element allowing me to calculate the change in the cross section.</p>
+
+</div>
+</div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
@@ -377,6 +421,16 @@ div#notebook {
 </div>
 </div>
 
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>I will leave the rest to your imagination but I like that Python makes this so easy. Thank you Guido!</p>
+
+</div>
+</div>
 </div>
     </div>
   </div>
