@@ -444,7 +444,7 @@ y.counts =  [[5, None, 2], [4, 3]]
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="k">print</span> <span class="s">&quot;x * 2 = &quot;</span><span class="p">,</span> <span class="n">x</span> <span class="o">*</span> <span class="mi">2</span>
@@ -487,6 +487,14 @@ y.average() =  [[1.75, None, 5.5], [7.0, 10.5]]
 </div>
 </div>
 
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>/home/lbrenner/buckysoap/src/buckysoap/atom.py:485: RuntimeWarning: invalid value encountered in divide
+  return self.__class__(getattr(self.asarray(), name)(other.asarray()),
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -503,7 +511,7 @@ y.average() =  [[1.75, None, 5.5], [7.0, 10.5]]
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="k">print</span> <span class="s">&quot;y.vstack(y) = &quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
@@ -544,7 +552,7 @@ y.average() =  [[1.75, None, 5.5], [7.0, 10.5]]
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="n">z</span> <span class="o">=</span> <span class="n">bs</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span> <span class="o">+</span> <span class="mi">100</span>
@@ -586,7 +594,7 @@ z[y] = [[[100, 101, 102, None, 104], None, [105, 106]], [[107, 108, 109, 104], [
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="n">z2</span> <span class="o">=</span> <span class="n">bs</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">78</span><span class="p">)</span>
@@ -642,7 +650,7 @@ z2[y].cardinality =  4
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="n">e1</span> <span class="o">=</span> <span class="n">Element</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">&#39;Sample&#39;</span><span class="p">)(</span>
@@ -678,11 +686,11 @@ z2[y].cardinality =  4
 </div>
 </div>
 
-<div class="output_area"><div class="prompt output_prompt">Out[11]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[10]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;buckysoap.element.Element at 0x7fb1ea236150&gt;</pre>
+<pre>&lt;buckysoap.element.Element at 0x7f989de5fd90&gt;</pre>
 </div>
 
 </div>
@@ -703,7 +711,7 @@ z2[y].cardinality =  4
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[14]:</div>
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="n">e2</span> <span class="o">=</span> <span class="n">e1</span><span class="p">(</span>
@@ -739,11 +747,11 @@ z2[y].cardinality =  4
 </div>
 </div>
 
-<div class="output_area"><div class="prompt output_prompt">Out[14]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[11]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;buckysoap.element.Element at 0x7fb1f6dbe190&gt;</pre>
+<pre>&lt;buckysoap.element.Element at 0x7f989de71150&gt;</pre>
 </div>
 
 </div>
@@ -764,7 +772,7 @@ z2[y].cardinality =  4
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[17]:</div>
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="n">e3</span> <span class="o">=</span> <span class="n">e2</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s">&#39;group_id1,group_id2&#39;</span><span class="p">)</span>
@@ -839,11 +847,11 @@ zero range one group_id1 group_id2
 </div>
 </div>
 
-<div class="output_area"><div class="prompt output_prompt">Out[17]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[12]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;buckysoap.element.Element at 0x7fb1f6dbe190&gt;</pre>
+<pre>&lt;buckysoap.element.Element at 0x7f989de71150&gt;</pre>
 </div>
 
 </div>
@@ -864,7 +872,7 @@ zero range one group_id1 group_id2
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[22]:</div>
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="n">e4</span> <span class="o">=</span> <span class="p">(</span>
@@ -944,11 +952,11 @@ Sample[5]
 </div>
 </div>
 
-<div class="output_area"><div class="prompt output_prompt">Out[22]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[13]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;buckysoap.element.Element at 0x7fb1f6dbe2d0&gt;</pre>
+<pre>&lt;buckysoap.element.Element at 0x7f989de79ad0&gt;</pre>
 </div>
 
 </div>
@@ -968,7 +976,7 @@ Sample[5]
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[23]:</div>
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="n">e4</span><span class="o">.</span><span class="n">display</span><span class="p">()</span>
@@ -1107,11 +1115,11 @@ zero range one
 </div>
 </div>
 
-<div class="output_area"><div class="prompt output_prompt">Out[23]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[14]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;buckysoap.element.Element at 0x7fb1ea236150&gt;</pre>
+<pre>&lt;buckysoap.element.Element at 0x7f989de5fd90&gt;</pre>
 </div>
 
 </div>
@@ -1134,7 +1142,7 @@ zero range one
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[31]:</div>
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="n">groups</span> <span class="o">=</span> <span class="p">(</span>
@@ -1222,11 +1230,11 @@ Sample[5]
 </div>
 </div>
 
-<div class="output_area"><div class="prompt output_prompt">Out[31]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[15]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;buckysoap.element.Element at 0x7fb1f6dbe2d0&gt;</pre>
+<pre>&lt;buckysoap.element.Element at 0x7f989de79ad0&gt;</pre>
 </div>
 
 </div>
@@ -1247,7 +1255,7 @@ Sample[5]
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[30]:</div>
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="n">join</span> <span class="o">=</span> <span class="n">e4</span><span class="o">.</span><span class="n">inner</span><span class="p">(</span><span class="n">groups</span><span class="p">,</span> <span class="n">group_id</span><span class="o">=</span><span class="s">&#39;group_id2&#39;</span><span class="p">)</span>
@@ -1341,11 +1349,11 @@ Sample[5]
 </div>
 </div>
 
-<div class="output_area"><div class="prompt output_prompt">Out[30]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[16]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;buckysoap.element.Element at 0x7fb1e804d710&gt;</pre>
+<pre>&lt;buckysoap.element.Element at 0x7f989de79d90&gt;</pre>
 </div>
 
 </div>
@@ -1366,7 +1374,7 @@ Sample[5]
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[32]:</div>
+<div class="prompt input_prompt">In&nbsp;[17]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="n">join</span> <span class="o">=</span> <span class="n">join</span><span class="o">.</span><span class="n">sort_by</span><span class="p">(</span><span class="s">&#39;Groups.name&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">display</span><span class="p">()</span>
@@ -1465,7 +1473,7 @@ Sample[5]
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[33]:</div>
+<div class="prompt input_prompt">In&nbsp;[18]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="n">join</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span><span class="n">join</span><span class="p">)</span><span class="o">.</span><span class="n">display</span><span class="p">()</span>
@@ -1630,11 +1638,11 @@ Sample[11]
 </div>
 </div>
 
-<div class="output_area"><div class="prompt output_prompt">Out[33]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[18]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;buckysoap.element.Element at 0x7fb1e804dad0&gt;</pre>
+<pre>&lt;buckysoap.element.Element at 0x7f98953215d0&gt;</pre>
 </div>
 
 </div>
@@ -1655,7 +1663,7 @@ Sample[11]
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[34]:</div>
+<div class="prompt input_prompt">In&nbsp;[19]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="k">print</span> <span class="n">join</span><span class="o">.</span><span class="n">toxml</span><span class="p">()</span>
@@ -1703,7 +1711,7 @@ Sample[11]
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[35]:</div>
+<div class="prompt input_prompt">In&nbsp;[20]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="k">print</span> <span class="n">join</span><span class="o">.</span><span class="n">toxml</span><span class="p">(</span><span class="n">use_attributes</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
@@ -1817,7 +1825,7 @@ Sample[11]
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[36]:</div>
+<div class="prompt input_prompt">In&nbsp;[21]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="k">print</span> <span class="n">join</span><span class="o">.</span><span class="n">tojson</span><span class="p">()</span>
@@ -1977,9 +1985,35 @@ Sample[11]
 </div>
 
 </div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now let's do some caching. For this I am relying on numpy.savez and numpy.savez_compressed. I have yet to find a faster way of storing a billion values. Here is the documentation:</p>
+<p><a href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.savez.html">http://docs.scipy.org/doc/numpy/reference/generated/numpy.savez.html</a></p>
+<p>I use it in Atom.load and Atom.persist:</p>
+<p>I splay columns into individual npz files:</p>
+
+<pre><code>lbrenner@josie:~/buckysoap$ ls cache/sample
+one.npz  range.npz  zero.npz
+
+</code></pre>
+<p>Each Atom's npz file contains data, mask and neccessary bincounts.</p>
+
+<pre><code> Filemode      Length  Date         Time      File
+- ----------  --------  -----------  --------  --------
+  -rw-------       160   4-Jun-2015  12:23:08  data.npy
+  -rw-------        90   4-Jun-2015  12:23:08  mask.npy
+- ----------  --------  -----------  --------  --------
+               250                         2 files</code></pre>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[37]:</div>
+<div class="prompt input_prompt">In&nbsp;[23]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="k">def</span> <span class="nf">cache_sample</span><span class="p">():</span>
@@ -1996,6 +2030,7 @@ Sample[11]
         <span class="n">factory</span><span class="o">=</span><span class="n">factory</span><span class="p">)</span>
 
 <span class="c">#We are just deleting directory for the sake of demonstration</span>
+<span class="kn">import</span> <span class="nn">os</span>
 <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s">&#39;cache/sample&#39;</span><span class="p">):</span>
     <span class="k">print</span> <span class="s">&quot;Deleting cache/sample&quot;</span>
     <span class="kn">import</span> <span class="nn">shutil</span>
@@ -2047,11 +2082,11 @@ cache/sample = 10
 </div>
 </div>
 
-<div class="output_area"><div class="prompt output_prompt">Out[37]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[23]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;buckysoap.element.Element at 0x7fb1e804d4d0&gt;</pre>
+<pre>&lt;buckysoap.element.Element at 0x7f987c996e50&gt;</pre>
 </div>
 
 </div>
@@ -2059,6 +2094,16 @@ cache/sample = 10
 </div>
 </div>
 
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>If you want to map to and from pandas use: element.to_pandas() Element.from_pandas(). I will provide examples but my current instance does not have it running. I would recommend using Enthought or Continuum.</p>
+
+</div>
+</div>
 </div>
     </div>
   </div>
