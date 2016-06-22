@@ -464,6 +464,8 @@ class Atom(np.ndarray):
         return self.__class__(np.absolute(self.asarray()), mask=self.mask, bincounts=self.bincounts)
     def demean(self):
         return self - self.average()
+    def distribution(self):
+        return self / self.sum()
     def wrap_ufunc(self, name, other):
         def align(x, y):
             if np.isscalar(x):

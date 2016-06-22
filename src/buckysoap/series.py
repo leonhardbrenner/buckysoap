@@ -1,6 +1,7 @@
 class Series(object):
     def __init__(self, ring, **kw):
         self.ring = ring
+        self.kw = kw
         self(**kw)
     def __getitem__(self, index):
         if isinstance(index, str):

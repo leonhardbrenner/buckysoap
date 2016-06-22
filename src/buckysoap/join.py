@@ -24,7 +24,7 @@ class join(object):
     def mask(self):
         mask = np.ones(max(self.left.new_index.size, self.right.new_index.size), np.bool)
         for side_mask in (side.mask for side in (self.left, self.right) if side.mask is not None):
-            mask &= side_mask
+            mask &= side_mask.astype(bool)
         return mask
     
     class Side(object):

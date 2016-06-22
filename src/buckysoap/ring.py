@@ -1,4 +1,3 @@
-import inspect
 from series import Series
 
 class Ring(object):
@@ -44,4 +43,3 @@ class Ring(object):
         return self.pos - self.dates.searchsorted(self.epoch)
 
     series = classmethod(Series)
-

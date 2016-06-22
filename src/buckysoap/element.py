@@ -114,6 +114,14 @@ def demean(self, val, *paths):
     inverse_sort_index[group_index.flattened] = np.arange(group_index.flattened.size)
     return val[group_index].demean().flattened[inverse_sort_index]
 
+def distribution(self, val, *paths):
+    '''
+    '''
+    group_index = self.__group_index__(*paths)
+    inverse_sort_index = np.empty(group_index.flattened.size, np.int)
+    inverse_sort_index[group_index.flattened] = np.arange(group_index.flattened.size)
+    return val[group_index].distribution().flattened[inverse_sort_index]
+
 def vstack(self, *elements):
     '''
     '''
@@ -183,6 +191,9 @@ def element_to_dataframe(self):
     r = DataFrame({ c: getattr(self, c) for c in self.__cnames__ }, columns=self.__cnames__)
     return r
 to_pandas = element_to_dataframe
+
+def to_csv(self, f, index=False, header=True):
+    self.to_pandas().to_csv(f, index=index, header=header)
 
 def set_name(self, name):
     return Element(self, name=name)
@@ -268,7 +279,7 @@ def display(self, n=20, indent = '    ', output_stream = sys.stdout, file=None, 
             is_frame_like = False
     if is_frame_like:
         columns = zip(*[self.__cnames__]
-                      + zip(*[(getattr(self, name)[0:10])
+                      + zip(*[(getattr(self, name)[0:n])
                               for name in self.__cnames__]))
         column_widths = [max([len(str(y)) for y in x]) for x in columns]
         column_format = [''.join(['%', str(x), 's']) for x in column_widths]
@@ -281,12 +292,13 @@ def display(self, n=20, indent = '    ', output_stream = sys.stdout, file=None, 
         if filename is not None:
             output_stream = open(filename, 'w')
         display('x' if hasattr(self, '__name__') and self.__name__ is None else self.__name__, self[0:n])
+    print "(%s rows)" % len(self)
     return self
 
-import lxml.etree as etree
 def toxml(self, indent='    ', pretty=True, use_attributes=True, root=None):
     '''
     '''
+    import lxml.etree as etree
     from atom import Atom
     from xml.dom import minidom
     import numpy as np
@@ -364,9 +376,12 @@ def tojson(self, indent='    ', pretty=True):
     else:
         return json.dumps(stack[0], sort_keys=False, separators=(',', ': '))
 
+def repeat(self, x):
+    return Atom(np.repeat(x, len(self)))
+
 class Element(object):
     def __init__(self, source=None, factory=None, cachedir=None, index=None,
-                 cnames=None, name=None, columns=None, is_client=False, kw={}):
+                 cnames=None, name=None, columns=None, is_client=True, kw={}):
         if cachedir and not os.path.exists(cachedir):
             os.makedirs(cachedir)
         self.__cachedir__ = cachedir
@@ -435,17 +450,17 @@ class Element(object):
             source = self.__factory__()
             self.__source__ = source
             #Not really the right place for this.
-            if self.__cachedir__ is not None:
-                print '%s = %s' % (self.__cachedir__, len(self))
+            #if self.__cachedir__ is not None:
+            #    print '%s = %s' % (self.__cachedir__, len(self))
         if self.__source__ is not None:
             attr = getattr(self.__source__, name)
         if attr is not None and self.__index__ is not None:
             #Although this is simple and effective it is not very efficienct
             #    a = Ai(Bi(C[xy])))
             #Using this method:
-            #    ax = Cx[Bi][Ai], xy = Cy[Bi][Ai]
+            #    ax = Cx[Bi][Ai], xy = ay[Bi][Ai]
             #A better approach is to calculate the index then apply it
-            #    i = Bi[Ai], ax = Cx[i], ay = Cx[i]
+            #    bai = Bi[Ai], ax = Cx[bai], ay = Cx[bai]
             attr = attr[self.__index__]
         if attr is not None:
             setattr(self, name, attr)
@@ -536,6 +551,20 @@ class Element(object):
         root.children[0].element(self)
         self.__name__ = root.children[0].__name__
 
+    @staticmethod
+    def from_pandas(df):
+        '''
+        '''
+        return Element(
+            cnames=[x for x in df.columns],
+            columns=[Atom(df[name], mask=df[name].notnull())
+                     for name in df.columns])
+
+    @staticmethod
+    def read_csv(*a, **kw):
+        import pandas as pd
+        return Element.from_pandas(pd.read_csv(*a, **kw))
+
     join = __join__ = join
     inner = __inner__ = inner
     left_outer = __left_outer__ = left_outer
@@ -543,6 +572,7 @@ class Element(object):
     outer = __outer__ = outer
     expand = __expand__ = expand
     demean = __demean__ = demean
+    distribution = __distribution__ = distribution
     vstack = __vstack__ = vstack
     freeze = __freeze__ = freeze
     keys = __keys__ = keys
@@ -556,6 +586,7 @@ class Element(object):
     tojson = __tojson__ = tojson
     fromxml = __fromxml__ = fromxml
     to_pandas = __to_pandas__ = to_pandas
+    to_csv = __to_csv__ = to_csv
     set_name = __set_name__ = set_name
     attrs = __attrs__ = attrs
     to_string = __to_string__ = to_string
@@ -567,3 +598,4 @@ class Element(object):
     sort_by = __sort_by__ = sort_by
     group = __group__ = group
     display = __display__ = display
+    repeat = __repeat__ = repeat
