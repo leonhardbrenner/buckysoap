@@ -468,6 +468,8 @@ class Element(object):
     def __getitem__(self, index):
         if getattr(index, '__call__', None):
             index = index(self)
+            if isinstance(index, list):
+                index = Atom(index)
         return Element(self, index=index)
 
     def __iter__(self):

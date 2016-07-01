@@ -251,6 +251,24 @@ class Atom(np.ndarray):
             bincounts = self.bincounts[:]
             bincounts[0] = Atom(condition, bincounts=[bincounts[0]]).cumsum().last
             return Atom(np.asarray(self)[condition], mask=self.mask[condition], bincounts=bincounts)
+
+    def shadow(self, test, value, mask=None):
+        '''
+        Use cases:
+        (element
+         (referrer_domain = lambda x: x.referrer_domain.shadow(lambda x: x=='http://', '')
+         (agency = lambda x: x.insertionorders_ioagency.name.shadow(lambda x: ~x.mask, '', True))
+        '''
+        if hasattr(test, '__call__'):
+            test = test(self)
+        if hasattr(test, '__call__'):
+            value = value(self[test])
+        array = np.asarray(self)
+        array[test] = value
+        if mask and isinstance(mask, bool):
+            mask = (self.ones if mask else self.zeros).astype(bool)
+        return Atom(array, mask=self.mask if mask is None else mask, bincounts=self.bincounts)
+
     def cumsum(self):
         self = self.nan_to_mask()
         cs = self.asarray().cumsum()
