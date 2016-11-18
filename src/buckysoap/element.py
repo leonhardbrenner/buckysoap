@@ -379,6 +379,35 @@ def tojson(self, indent='    ', pretty=True):
 def repeat(self, x):
     return Atom(np.repeat(x, len(self)))
 
+def widen(self, cnames, xaxis, yaxis):
+    from collections import namedtuple
+    import inspect
+    if isinstance(cnames, str):
+        cnames = cnames.split(',')
+    new_cnames = [xaxis, 'tag', yaxis]
+    element = (
+        self
+        (tag = lambda x:(
+            ['_'.join(map(str, x))
+             for x in zip(*[getattr(x, name) for name in cnames])]))
+        (new_cnames))
+    class Tag(namedtuple('Tag', element.tag.unique)):
+        __slots__ = ()
+        def __new__(cls, *args, **kwargs):
+            args_list = inspect.getargspec(super(Tag, cls).__new__).args[len(args)+1:]
+            params = {key: kwargs.get(key) for key in args_list + kwargs.keys()}
+            return super(Tag, cls).__new__(cls, *args, **params)
+    grouped_element = element.group(xaxis)
+    rows = []
+    for row in grouped_element:
+        tag = Tag(**dict(zip(row.tag, row.requests)))
+        rows.append([getattr(tag, x) for x in tag._fields])
+    return (
+        Element()
+        (**dict(zip(Tag._fields, map(list, zip(*rows)))))
+        #(sorted(Tag._fields))
+        (date = grouped_element.date))
+
 class Element(object):
     def __init__(self, source=None, factory=None, cachedir=None, index=None,
                  cnames=None, name=None, columns=None, is_client=True, kw={}):
@@ -468,8 +497,8 @@ class Element(object):
     def __getitem__(self, index):
         if getattr(index, '__call__', None):
             index = index(self)
-            if isinstance(index, list):
-                index = Atom(index)
+        if isinstance(index, list):
+            index = Atom(index)
         return Element(self, index=index)
 
     def __iter__(self):
@@ -601,3 +630,4 @@ class Element(object):
     group = __group__ = group
     display = __display__ = display
     repeat = __repeat__ = repeat
+    widen = __widen__ = widen
